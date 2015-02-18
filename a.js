@@ -1,15 +1,18 @@
 // -------------
 // Models / Collections
 // -------------
-
-// -------------
-// Views / (Presentation / Interation)
-// -------------
 var Blog = Backbone.Model.extend({
   defaults:{
     title:'',
     body: ''
   }
+});
+
+// -------------
+// Views / (Presentation / Interation)
+// -------------
+var Post = Backbone.View.extend({
+
 });
 
 

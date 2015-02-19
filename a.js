@@ -3,28 +3,38 @@
 // -------------
 // Models / Collections
 // -------------
-var Blog = Backbone.Model.extend({
+var BlogModel = Backbone.Model.extend({
   defaults:{
     title:'',
     body: ''
   },
 });
 
-var Blogs = Backbone.Collection.extend({
+var BlogsModels = Backbone.Collection.extend({
   url:'https://api.parse.com/1/classes/post'
 });
 
 // -------------
 // Views / (Presentation / Interation)
 // -------------
-var Post = Backbone.View.extend({
+var PostView = Backbone.View.extend({
   tagName: 'form',
   template: _.template($('#blog-post-template').html()),
+
+  createPost: function(event){
+    event.preventDefault();
+    this.collection.create({title:'', body:''});
+  },
 
   render: function(){
     $('.app-container').append(this.el);
     this.$el.append(this.template);
-  }
+  },
+
+
+  events: {
+     'submit': 'createPost'
+   }
 });
 
 // -------------
@@ -45,8 +55,8 @@ $.ajaxSetup({
 // Glue code
 // -------------
 $(document).ready(function(){
-window.blog = new Blog();
-window.post = new Post({
+window.blog = new BlogModel();
+window.post = new PostView({
   model: blog
 });
 post.render();
